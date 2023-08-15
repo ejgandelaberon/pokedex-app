@@ -15,40 +15,35 @@ class Home extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('PokeDex App'),
-      ),
-      body: Center(
-        child: GridView.builder(
-          itemCount: menus.length,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-          ),
-          itemBuilder: (context, index) {
-            return Card(
-              child: InkWell(
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => menus[index],
-                    ),
-                  );
-                },
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Pokemon ${index + 1}',
-                      style: Theme.of(context).textTheme.headlineSmall,
-                    ),
-                    const Icon(Icons.pets),
-                  ],
-                ),
-              ),
-            );
-          },
+    return Center(
+      child: GridView.builder(
+        itemCount: menus.length,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
         ),
+        itemBuilder: (context, index) {
+          return Card(
+            child: InkWell(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => menus[index],
+                  ),
+                );
+              },
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Pokemon ${index + 1}',
+                    style: Theme.of(ref.context).textTheme.headlineSmall,
+                  ),
+                  const Icon(Icons.pets),
+                ],
+              ),
+            ),
+          );
+        },
       ),
     );
   }
