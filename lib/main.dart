@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -15,13 +13,12 @@ Future<void> main() async {
   );
 }
 
-class MyApp extends HookConsumerWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final darkMode = ref.watch(darkModeProvider);
-    log(darkMode.toString());
     return MaterialApp(
       title: 'Pokedex App',
       theme: ThemeData(
@@ -33,14 +30,17 @@ class MyApp extends HookConsumerWidget {
           title: const Text('Pokedex App'),
         ),
         body: const Home(),
-        floatingActionButton: FloatingActionButton.extended(
-          onPressed: null,
-          label: const Text('Dark Mode?'),
-          icon: Switch.adaptive(
-            value: darkMode,
-            onChanged: (value) {
-              ref.read(darkModeProvider.notifier).toggle();
-            },
+        floatingActionButton: IntrinsicWidth(
+          child: Row(
+            children: [
+              const Text('Dark Mode'),
+              Switch.adaptive(
+                value: darkMode,
+                onChanged: (value) {
+                  ref.read(darkModeProvider.notifier).toggle();
+                },
+              ),
+            ],
           ),
         ),
       ),
