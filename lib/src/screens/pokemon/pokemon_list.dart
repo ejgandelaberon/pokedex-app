@@ -4,10 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:pokedex_app/src/entities/pokemon/pokemon_link.dart';
-import 'package:pokedex_app/src/entities/pokemon/pokemon_list_response.dart';
 import 'package:pokedex_app/src/repositories/pokemon_repository.dart';
-
-import 'pokemon_service.dart';
 
 const int _kPageLimit = 20;
 
@@ -84,34 +81,18 @@ class _PokemonListScreenState extends ConsumerState<PokemonListScreen> {
 
   Future<void> fetchPage(int pageKey) async {
     try {
-      final cacheNotifier = ref.read(pokemonCacheProvider.notifier);
-      final cache = cacheNotifier.all;
+      final newItems = await ref.watch(pokemonRepositoryProvider).fetchPokemons(
+            offset: pageKey,
+            limit: _kPageLimit,
+          );
 
-      PokemonListResponse? newItems;
+      final isLastPage = newItems.results.length < _kPageLimit;
 
-      if (!cache.containsKey(pageKey.toString())) {
-        log('Fetching pokemons from api...', name: 'PokemonListScreen::fetchPage');
-        final newItems = await ref.watch(pokemonRepositoryProvider).fetchPokemons(
-          offset: pageKey,
-          limit: _kPageLimit,
-        );
-
-        log('Caching response...', name: 'PokemonListScreen::fetchPage');
-        cacheNotifier.save(pageKey.toString(), newItems);
-      }
-
-      log('Fetching cached response...', name: 'PokemonListScreen::fetchPage');
-      newItems = cacheNotifier.get(pageKey.toString());
-
-      if (newItems != null) {
-        final isLastPage = newItems.results.length < _kPageLimit;
-
-        if (isLastPage) {
-          _pagingController.appendLastPage(newItems.results);
-        } else {
-          final nextPageKey = pageKey + newItems.results.length;
-          _pagingController.appendPage(newItems.results, nextPageKey);
-        }
+      if (isLastPage) {
+        _pagingController.appendLastPage(newItems.results);
+      } else {
+        final nextPageKey = pageKey + newItems.results.length;
+        _pagingController.appendPage(newItems.results, nextPageKey);
       }
     } catch (e) {
       log(e.toString(), name: 'PokemonListScreen::fetchPage');

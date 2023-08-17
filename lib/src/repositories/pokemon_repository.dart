@@ -6,6 +6,7 @@ import 'package:pokedex_app/src/entities/pokemon/pokemon_link.dart';
 import 'package:pokedex_app/src/entities/pokemon/pokemon_list_response.dart';
 import 'package:pokedex_app/src/entities/pokemon/pokemon_response.dart';
 import 'package:pokedex_app/src/providers/dio/dio_provider.dart';
+import 'package:pokedex_app/src/screens/pokemon/pokemon_service.dart';
 
 final pokemonRepositoryProvider = Provider(PokemonRepository.new);
 
@@ -15,33 +16,46 @@ class PokemonRepository {
   static const _apiUrl = 'https://pokeapi.co/api/v2';
 
   final Ref ref;
-  final _pokemonCache = <String, PokemonLink>{};
 
   Future<PokemonListResponse> fetchPokemons({
     required int offset,
     int? limit,
     CancelToken? cancelToken,
   }) async {
-    final response = await get(
-      'pokemon',
-      queryParameters: {
-        'offset': offset,
-        'limit': limit,
-      },
-      cancelToken: cancelToken,
-    );
+    final cacheNotifier = ref.read(pokemonResponseCacheProvider.notifier);
+    final cache = cacheNotifier.all;
+
+    PokemonResponse? response;
+
+    if (!cache.containsKey(offset.toString())) {
+      log('Fetching pokemons from api...', name: 'PokemonListScreen::fetchPage');
+      response = await get(
+        'pokemon',
+        queryParameters: {
+          'offset': offset,
+          'limit': limit,
+        },
+        cancelToken: cancelToken,
+      );
+
+      log('Caching response...', name: 'PokemonListScreen::fetchPage');
+      cacheNotifier.save(offset.toString(), response);
+    }
+
+    log('Fetching pokemons from cache...', name: 'PokemonListScreen::fetchPage');
+    response = cacheNotifier.get(offset.toString());
+
+    if (response == null) {
+      throw Exception('Error fetching data from API');
+    }
 
     final result = PokemonListResponse(
       results:
-          response.data.results.map((e) => PokemonLink.fromJson(e)).toList(),
+      response.data.results.map((e) => PokemonLink.fromJson(e)).toList(),
       count: response.data.count,
       next: response.data.next,
       previous: response.data.previous,
     );
-
-    for (final pokemonLink in result.results) {
-      _pokemonCache[pokemonLink.name] = pokemonLink;
-    }
 
     return result;
   }
@@ -50,10 +64,6 @@ class PokemonRepository {
     String pokemonName, {
     CancelToken? cancelToken,
   }) async {
-    if (_pokemonCache.containsKey(pokemonName)) {
-      return _pokemonCache[pokemonName]!;
-    }
-
     try {
       final response = await get(
         pokemonName,

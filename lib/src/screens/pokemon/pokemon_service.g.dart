@@ -6,20 +6,22 @@ part of 'pokemon_service.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$pokemonCacheHash() => r'ee7b358c334e93583bcf368fb225ed8196cc9ec4';
+String _$pokemonResponseCacheHash() =>
+    r'59e99df67aba6da09a52b647f90f7e2e39e73a2e';
 
-/// See also [PokemonCache].
-@ProviderFor(PokemonCache)
-final pokemonCacheProvider =
-    NotifierProvider<PokemonCache, Map<String, PokemonListResponse>>.internal(
-  PokemonCache.new,
-  name: r'pokemonCacheProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$pokemonCacheHash,
+/// See also [PokemonResponseCache].
+@ProviderFor(PokemonResponseCache)
+final pokemonResponseCacheProvider = NotifierProvider<PokemonResponseCache,
+    Map<String, PokemonResponse>>.internal(
+  PokemonResponseCache.new,
+  name: r'pokemonResponseCacheProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$pokemonResponseCacheHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$PokemonCache = Notifier<Map<String, PokemonListResponse>>;
+typedef _$PokemonResponseCache = Notifier<Map<String, PokemonResponse>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member
