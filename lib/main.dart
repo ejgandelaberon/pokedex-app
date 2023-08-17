@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:pokedex_app/src/database/hive.dart';
-import 'package:pokedex_app/src/database/hive_records.dart';
+import 'package:pokedex_app/src/database/hive/hive.dart';
+import 'package:pokedex_app/src/database/hive/hive_records.dart';
 import 'package:pokedex_app/src/screens/home.dart';
 
 Future<void> main() async {
