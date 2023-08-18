@@ -23,35 +23,15 @@ class PokemonRepository {
     int? limit,
     CancelToken? cancelToken,
   }) async {
-    Response? response;
-
-    if (!_responseCache.all.containsKey(offset.toString())) {
-      log(
-        'Fetching pokemons from api...',
-        name: 'PokemonRepository::fetchPokemons',
-      );
-      response = await _get(
-        'pokemon',
-        queryParameters: {
-          'offset': offset,
-          'limit': limit,
-        },
-        cancelToken: cancelToken,
-      );
-
-      log('Caching response...', name: 'PokemonRepository::fetchPokemons');
-      _responseCache.save(offset.toString(), response);
-    }
-
-    log(
-      'Fetching pokemons from cache...',
-      name: 'PokemonRepository::fetchPokemons',
+    final response = await _get(
+      'pokemon',
+      queryParameters: {
+        'offset': offset,
+        'limit': limit,
+      },
+      cancelToken: cancelToken,
+      cacheKey: offset.toString(),
     );
-    response = _responseCache.get(offset.toString());
-
-    if (response == null) {
-      throw Exception('Error fetching data from API');
-    }
 
     return PokemonListResponse.fromJson(response.data);
   }
@@ -60,31 +40,11 @@ class PokemonRepository {
     String pokemonName, {
     CancelToken? cancelToken,
   }) async {
-    Response? response;
-
-    if (!_responseCache.all.containsKey(pokemonName)) {
-      log(
-        'Fetching $pokemonName from api...',
-        name: 'PokemonRepository::fetchPokemon',
-      );
-      response = await _get(
-        'pokemon/$pokemonName',
-        cancelToken: cancelToken,
-      );
-
-      log('Caching $pokemonName...', name: 'PokemonRepository::fetchPokemon');
-      _responseCache.save(pokemonName, response);
-    }
-
-    log(
-      'Fetching $pokemonName from cache...',
-      name: 'PokemonRepository::fetchPokemon',
+    final response = await _get(
+      'pokemon/$pokemonName',
+      cancelToken: cancelToken,
+      cacheKey: pokemonName,
     );
-    response = _responseCache.get(pokemonName);
-
-    if (response == null) {
-      throw Exception('Error fetching data from API');
-    }
 
     return PokemonLink.fromJson(response.data);
   }
@@ -93,13 +53,32 @@ class PokemonRepository {
     String endpoint, {
     Map<String, dynamic>? queryParameters,
     CancelToken? cancelToken,
+    required String cacheKey,
   }) async {
     try {
-      final response = await ref.read(dioProvider).get(
-            "$_apiUrl/$endpoint",
-            queryParameters: queryParameters,
-            cancelToken: cancelToken,
-          );
+      Response? response;
+
+      if (!_responseCache.all.containsKey(cacheKey)) {
+        log(
+          'Fetching from api...',
+          name: 'PokemonRepository::_get',
+        );
+        response = await ref.read(dioProvider).get(
+              "$_apiUrl/$endpoint",
+              queryParameters: queryParameters,
+              cancelToken: cancelToken,
+            );
+
+        log('Caching response...', name: 'PokemonRepository::_get');
+        _responseCache.save(cacheKey, response);
+      }
+
+      log('Fetching from cache...', name: 'PokemonRepository::_get');
+      response = _responseCache.get(cacheKey);
+
+      if (response == null) {
+        throw Exception('Error fetching data from API');
+      }
 
       log(response.toString(), name: 'PokemonRepository:_get');
 
