@@ -20,7 +20,7 @@ PokemonResponse _$PokemonResponseFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$PokemonResponse {
-  PokemonData get data => throw _privateConstructorUsedError;
+  PokemonListResponse get data => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -34,9 +34,9 @@ abstract class $PokemonResponseCopyWith<$Res> {
           PokemonResponse value, $Res Function(PokemonResponse) then) =
       _$PokemonResponseCopyWithImpl<$Res, PokemonResponse>;
   @useResult
-  $Res call({PokemonData data});
+  $Res call({PokemonListResponse data});
 
-  $PokemonDataCopyWith<$Res> get data;
+  $PokemonListResponseCopyWith<$Res> get data;
 }
 
 /// @nodoc
@@ -58,14 +58,14 @@ class _$PokemonResponseCopyWithImpl<$Res, $Val extends PokemonResponse>
       data: null == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
-              as PokemonData,
+              as PokemonListResponse,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $PokemonDataCopyWith<$Res> get data {
-    return $PokemonDataCopyWith<$Res>(_value.data, (value) {
+  $PokemonListResponseCopyWith<$Res> get data {
+    return $PokemonListResponseCopyWith<$Res>(_value.data, (value) {
       return _then(_value.copyWith(data: value) as $Val);
     });
   }
@@ -79,10 +79,10 @@ abstract class _$$_PokemonResponseCopyWith<$Res>
       __$$_PokemonResponseCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({PokemonData data});
+  $Res call({PokemonListResponse data});
 
   @override
-  $PokemonDataCopyWith<$Res> get data;
+  $PokemonListResponseCopyWith<$Res> get data;
 }
 
 /// @nodoc
@@ -102,7 +102,7 @@ class __$$_PokemonResponseCopyWithImpl<$Res>
       null == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
-              as PokemonData,
+              as PokemonListResponse,
     ));
   }
 }
@@ -116,7 +116,7 @@ class _$_PokemonResponse implements _PokemonResponse {
       _$$_PokemonResponseFromJson(json);
 
   @override
-  final PokemonData data;
+  final PokemonListResponse data;
 
   @override
   String toString() {
@@ -150,13 +150,14 @@ class _$_PokemonResponse implements _PokemonResponse {
 }
 
 abstract class _PokemonResponse implements PokemonResponse {
-  const factory _PokemonResponse(final PokemonData data) = _$_PokemonResponse;
+  const factory _PokemonResponse(final PokemonListResponse data) =
+      _$_PokemonResponse;
 
   factory _PokemonResponse.fromJson(Map<String, dynamic> json) =
       _$_PokemonResponse.fromJson;
 
   @override
-  PokemonData get data;
+  PokemonListResponse get data;
   @override
   @JsonKey(ignore: true)
   _$$_PokemonResponseCopyWith<_$_PokemonResponse> get copyWith =>

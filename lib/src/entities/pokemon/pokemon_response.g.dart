@@ -8,7 +8,7 @@ part of 'pokemon_response.dart';
 
 _$_PokemonResponse _$$_PokemonResponseFromJson(Map<String, dynamic> json) =>
     _$_PokemonResponse(
-      PokemonData.fromJson(json['data'] as Map<String, dynamic>),
+      PokemonListResponse.fromJson(json['data'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$_PokemonResponseToJson(_$_PokemonResponse instance) =>

@@ -28,7 +28,8 @@ class PokemonRepository {
     PokemonResponse? response;
 
     if (!cache.containsKey(offset.toString())) {
-      log('Fetching pokemons from api...', name: 'PokemonListScreen::fetchPage');
+      log('Fetching pokemons from api...',
+          name: 'PokemonListScreen::fetchPage');
       response = await get(
         'pokemon',
         queryParameters: {
@@ -42,22 +43,15 @@ class PokemonRepository {
       cacheNotifier.save(offset.toString(), response);
     }
 
-    log('Fetching pokemons from cache...', name: 'PokemonListScreen::fetchPage');
+    log('Fetching pokemons from cache...',
+        name: 'PokemonListScreen::fetchPage');
     response = cacheNotifier.get(offset.toString());
 
     if (response == null) {
       throw Exception('Error fetching data from API');
     }
 
-    final result = PokemonListResponse(
-      results:
-      response.data.results.map((e) => PokemonLink.fromJson(e)).toList(),
-      count: response.data.count,
-      next: response.data.next,
-      previous: response.data.previous,
-    );
-
-    return result;
+    return response.data;
   }
 
   Future<PokemonLink> fetchPokemon(
@@ -70,7 +64,7 @@ class PokemonRepository {
         cancelToken: cancelToken,
       );
 
-      return PokemonLink.fromJson(response.data.results.single);
+      return response.data.results.single;
     } on DioException catch (e) {
       if (e.type == DioExceptionType.cancel) {
         log(
