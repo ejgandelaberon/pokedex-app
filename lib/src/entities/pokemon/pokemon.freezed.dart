@@ -22,8 +22,10 @@ Pokemon _$PokemonFromJson(Map<String, dynamic> json) {
 mixin _$Pokemon {
   int get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
+  @JsonKey(name: 'base_experience')
   int get baseExperience => throw _privateConstructorUsedError;
   int get height => throw _privateConstructorUsedError;
+  @JsonKey(name: 'is_default')
   bool get isDefault => throw _privateConstructorUsedError;
   int get order => throw _privateConstructorUsedError;
   int get weight => throw _privateConstructorUsedError;
@@ -41,9 +43,9 @@ abstract class $PokemonCopyWith<$Res> {
   $Res call(
       {int id,
       String name,
-      int baseExperience,
+      @JsonKey(name: 'base_experience') int baseExperience,
       int height,
-      bool isDefault,
+      @JsonKey(name: 'is_default') bool isDefault,
       int order,
       int weight});
 }
@@ -112,9 +114,9 @@ abstract class _$$_PokemonCopyWith<$Res> implements $PokemonCopyWith<$Res> {
   $Res call(
       {int id,
       String name,
-      int baseExperience,
+      @JsonKey(name: 'base_experience') int baseExperience,
       int height,
-      bool isDefault,
+      @JsonKey(name: 'is_default') bool isDefault,
       int order,
       int weight});
 }
@@ -176,9 +178,9 @@ class _$_Pokemon implements _Pokemon {
   const _$_Pokemon(
       {required this.id,
       required this.name,
-      required this.baseExperience,
+      @JsonKey(name: 'base_experience') required this.baseExperience,
       required this.height,
-      required this.isDefault,
+      @JsonKey(name: 'is_default') required this.isDefault,
       required this.order,
       required this.weight});
 
@@ -190,10 +192,12 @@ class _$_Pokemon implements _Pokemon {
   @override
   final String name;
   @override
+  @JsonKey(name: 'base_experience')
   final int baseExperience;
   @override
   final int height;
   @override
+  @JsonKey(name: 'is_default')
   final bool isDefault;
   @override
   final int order;
@@ -244,9 +248,9 @@ abstract class _Pokemon implements Pokemon {
   const factory _Pokemon(
       {required final int id,
       required final String name,
-      required final int baseExperience,
+      @JsonKey(name: 'base_experience') required final int baseExperience,
       required final int height,
-      required final bool isDefault,
+      @JsonKey(name: 'is_default') required final bool isDefault,
       required final int order,
       required final int weight}) = _$_Pokemon;
 
@@ -257,10 +261,12 @@ abstract class _Pokemon implements Pokemon {
   @override
   String get name;
   @override
+  @JsonKey(name: 'base_experience')
   int get baseExperience;
   @override
   int get height;
   @override
+  @JsonKey(name: 'is_default')
   bool get isDefault;
   @override
   int get order;
