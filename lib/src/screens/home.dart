@@ -27,13 +27,16 @@ class Home extends HookConsumerWidget {
                   ),
                 );
               },
-              child: Column(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  const Icon(Icons.pets),
+                  const SizedBox(width: 10),
                   Text(
-                    'Pokemon ${index + 1}',
+                    'View Pokemon List',
                     style: Theme.of(ref.context).textTheme.headlineSmall,
                   ),
+                  const SizedBox(width: 10),
                   const Icon(Icons.pets),
                 ],
               ),
