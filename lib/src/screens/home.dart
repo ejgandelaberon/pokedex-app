@@ -1,23 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pokedex_app/src/screens/pokemon/pokemon_list.dart';
-import 'package:pokedex_app/src/screens/pokemon/pokemon_list_hook.dart';
 
 class Home extends HookConsumerWidget {
   const Home({super.key});
 
-  static const List<Widget> menus = [
+  static const List<Widget> _menus = [
     PokemonListScreen(),
-    PokemonListHookScreen(),
   ];
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Center(
       child: GridView.builder(
-        itemCount: menus.length,
+        itemCount: _menus.length,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
+          crossAxisCount: 1,
         ),
         itemBuilder: (context, index) {
           return Card(
@@ -25,7 +23,7 @@ class Home extends HookConsumerWidget {
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => menus[index],
+                    builder: (context) => _menus[index],
                   ),
                 );
               },
