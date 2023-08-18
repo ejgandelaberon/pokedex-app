@@ -1,16 +1,17 @@
 # pokedex_app
 
-A new Flutter project.
+PokeDex App.
 
-## Getting Started
+## Description
 
-This project is a starting point for a Flutter application.
+Minimal PokeDex App using [PokeAPI](https://pokeapi.co/).
 
-A few resources to get you started if this is your first Flutter project:
+## Overview
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+This app is made to leverage well known flutter packages and to be used as a reference for future projects.
+- [Riverpod](https://pub.dev/packages/riverpod)
+- [Freezed](https://pub.dev/packages/freezed)
+- [Dio](https://pub.dev/packages/dio)
+- [Flutter Hooks](https://pub.dev/packages/flutter_hooks)
+- [Infinity Scroll](https://pub.dev/packages/infinite_scroll_pagination)
+- [Hive](https://pub.dev/packages/hive)
