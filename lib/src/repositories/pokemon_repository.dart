@@ -80,8 +80,7 @@ class PokemonRepository {
         throw Exception('Error fetching data from API');
       }
 
-      log(response.toString(), name: 'PokemonRepository:_get');
-
+      log('Returning response...', name: 'PokemonRepository:_get');
       return response;
     } on DioException catch (e) {
       if (e.type == DioExceptionType.cancel) {
