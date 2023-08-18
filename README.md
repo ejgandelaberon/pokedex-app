@@ -1,9 +1,5 @@
 # PokeDex App
 
-PokeDex App.
-
-## Description
-
 Minimal PokeDex App using [PokeAPI](https://pokeapi.co/).
 
 ## Overview
