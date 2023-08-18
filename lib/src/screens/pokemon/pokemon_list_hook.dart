@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:pokedex_app/src/entities/pokemon/pokemon_link.dart';
-import 'package:pokedex_app/src/hooks/infinite_scroll_pagination.dart';
+import 'package:pokedex_app/src/hooks/infinite_scroller.dart';
 import 'package:pokedex_app/src/repositories/pokemon_repository.dart';
 
 class PokemonListHookScreen extends HookConsumerWidget {
