@@ -1,4 +1,4 @@
-# pokedex_app
+# PokeDex App
 
 PokeDex App.
 
