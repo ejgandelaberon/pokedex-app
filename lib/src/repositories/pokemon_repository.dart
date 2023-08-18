@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:pokedex_app/src/entities/pokemon/pokemon_link.dart';
+import 'package:pokedex_app/src/entities/pokemon/pokemon.dart';
 import 'package:pokedex_app/src/entities/pokemon/pokemon_list_response.dart';
 import 'package:pokedex_app/src/providers/dio/dio_provider.dart';
 import 'package:pokedex_app/src/providers/dio/response_cache.dart';
@@ -36,7 +36,7 @@ class PokemonRepository {
     return PokemonListResponse.fromJson(response.data);
   }
 
-  Future<PokemonLink> fetchPokemon(
+  Future<Pokemon> fetchPokemon(
     String pokemonName, {
     CancelToken? cancelToken,
   }) async {
@@ -46,7 +46,7 @@ class PokemonRepository {
       cacheKey: pokemonName,
     );
 
-    return PokemonLink.fromJson(response.data);
+    return Pokemon.fromJson(response.data);
   }
 
   Future<Response> _get(
